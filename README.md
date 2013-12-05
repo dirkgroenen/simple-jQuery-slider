@@ -44,3 +44,5 @@ slider.nextSlide(); // Go to the next slide
 slider.prevSlide(); // Go to the previous slide
 slider.nextSlide(slidenumber); // Go to the given slide
 ```
+
+The slider automatically creates a list with list-items that you can use to control the slider
