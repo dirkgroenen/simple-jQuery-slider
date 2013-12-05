@@ -1,5 +1,5 @@
 // Slider object
-function workshopSlider(slidesdom){
+function simpleSlider(slidesdom){
 	var obj = this,sliderInterval;
 	obj.currentSlide = 0;
 	obj.totalSlides = 0;

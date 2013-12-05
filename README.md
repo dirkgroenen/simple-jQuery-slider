@@ -35,7 +35,7 @@ Add a div to your site containing the .slide divs
 Create and initilize the slider object and parse the div that contains the slides
 ```code
 $(document).ready(function(){	
-	var slider = new workshopSlider(".slider");
+	var slider = new simpleSlider(".slider");
 	slider.init();
 });
 ```
