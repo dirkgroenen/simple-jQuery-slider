@@ -6,8 +6,10 @@ A simple slider that does what a simple slider has to do: slide slides!
 Installation
 ------------
 
-Copy slider.js and transit.js to your website and include them in your <head></head>
+Include jQuery, slider.js and transit.js in your <head></head>
 ```code
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script type="text/javascript" src="/transit.js"></script>
 <script type="text/javascript" src="/slider.js"></script>
 ```
