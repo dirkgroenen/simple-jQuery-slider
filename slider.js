@@ -29,6 +29,23 @@ function simpleSlider(slidesdom){
 		
 		// Start the slider interval
 		setSliderInterval();
+		
+		// Add grabbing hand
+		$(slidesdom).css('cursor','-webkit-grab');
+		$(slidesdom).css('cursor','-moz-grab');
+		$(slidesdom).css('cursor','grab');
+		
+		$(slidesdom).mousedown(function(){
+			$(slidesdom).css('cursor','-webkit-grabbing');
+			$(slidesdom).css('cursor','-moz-grabbing');
+			$(slidesdom).css('cursor','grabbing');
+		});
+		
+		$(slidesdom).mouseup(function(){
+			$(slidesdom).css('cursor','-webkit-grab');
+			$(slidesdom).css('cursor','-moz-grab');
+			$(slidesdom).css('cursor','grab');
+		});
 	}
 	
 	function setSliderInterval(){
