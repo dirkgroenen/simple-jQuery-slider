@@ -42,6 +42,8 @@ $(document).ready(function(){
 });
 ```
 
+Custom options
+--------------
 You can also control the options of the simpleSlider. Just parse an object with the options into the simpleSlider().
 ```code
 $(document).ready(function(){	
@@ -63,6 +65,8 @@ $(document).ready(function(){
 });
 ```
 
+Control the slider
+--------------
 Now you can control the slider using the following functions
 ```code
 slider.nextSlide(); // Go to the next slide
@@ -71,3 +75,7 @@ slider.nextSlide(slidenumber); // Go to the given slide
 ```
 
 If enabled the slider automatically creates a list with list-items that you can use to control the slider.
+
+Supported browser
+-----------------
+For as far as I can test the script works in IE7+, Chrome and Firefox. I assume that the script also works in browsers like Safari.
