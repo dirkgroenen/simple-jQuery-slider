@@ -18,15 +18,15 @@
 		<script type="text/javascript">
 			$(document).ready(function(){
 				var options = {
-					slidesContainer: '.slider',
-					slides: '.slide',
-					swipe: false,
-					slideTracker: true,
-					slideTrackerID: 'slideposition',
-					slideOnInterval: true,
-					interval: 5000,
-					swipe: true,
-					animateDuration: 1000
+					slidesContainer: '.slider', // The div that contains the slides
+					slides: '.slide', // The name of a slide in the slidesContainer
+					swipe: true,	// Add possibility to Swipe > note that you have to include touchSwipe for this
+					slideTracker: true, // Add a UL with list items to track the current slide 
+					slideTrackerID: 'slideposition', // The name of the UL that tracks the slides
+					slideOnInterval: true, // Slide on interval
+					interval: 5000, // Interval to slide on if slideOnInterval is enabled
+					animateDuration: 1500, // Duration of an animation
+					animationEasing: 'easeInCirc' // Accepts: linear ease in out in-out snap easeOutCubic easeInOutCubic easeInCirc easeOutCirc easeInOutCirc easeInExpo easeOutExpo easeInOutExpo easeInQuad easeOutQuad easeInOutQuad easeInQuart easeOutQuart easeInOutQuart easeInQuint easeOutQuint easeInOutQuint easeInSine easeOutSine easeInOutSine easeInBack easeOutBack easeInOutBack
 				};
 				
 				var slider = new simpleSlider(options);
@@ -47,20 +47,20 @@
 				<div class='slider'>
 					<div class='slide' style='background:#1DA1CD;'>
 						<div class='slidecontent'>
-							<h1>Lorem ipsum dolor</h1>
-							<h2>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam posuere cursus euismod.Aenean ut tortor leoing elit."</h2>
+							<h1>Simple jQuery slider</h1>
+							<h2>Just a free and simple jQuery slider that uses CSS3 if possible. You can find it on <a href='https://github.com/dirkgroenen/simple-jQuery-slider'>Github</a></h2>
 						</div>
 					</div>
 					<div class='slide' style='background-image: url("http://maxcdn.thedesigninspiration.com/wp-content/uploads/2012/11/Wallpaper-l-003.jpg");background-size: cover;'>
 						<div class='slidecontent'>
-							<h1>Yes: images!</h1>
+							<h1>Yes; full screen images (and beer)!</h1>
 							<h2>Why not use a full background image? It's possible!</h2>
 						</div>
 					</div>
 					<div class='slide' style='background:#FF5D8A;'>
 						<div class='slidecontent'>
-							<h1>Lorem ipsum dolor</h1>
-							<h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam posuere cursus euismod.Aenean ut tortor leo.</h2>
+							<h1>Not only fullscreen</h1>
+							<h2>The slider isn't for fullscreen use only. It's just how you want to style it.</h2>
 						</div>
 					</div>
 					<div class='slide' style='background:#68D286;'>

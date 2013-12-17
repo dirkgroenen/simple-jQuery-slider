@@ -31,10 +31,9 @@ function simpleSlider(useroptions){
 		slideOnInterval: true,
 		interval: 5000,
 		swipe: true,
-		animateDuration: 1000
+		animateDuration: 1000,
+		animationEasing: 'easeInOut'
 	}, useroptions);
-	
-	console.log(options);
 	
 	// Init the slider
 	obj.init = function(){
@@ -121,7 +120,7 @@ function simpleSlider(useroptions){
 		// Check which fact is the current and show it
 		$(options.slidesContainer).find(options.slides).each(function(index){
 			if ($.support.transition)
-				$(this).transition({x: ($(this).data('index')-obj.currentSlide)*100+'%'}, options.animateDuration);
+				$(this).transition({x: ($(this).data('index')-obj.currentSlide)*100+'%'}, options.animateDuration, options.animationEasing);
 			else
 				$(this).animate({left: ($(this).data('index')-obj.currentSlide)*100+'%'}, options.animateDuration);
 		});
