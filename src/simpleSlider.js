@@ -32,7 +32,7 @@ function simpleSlider(useroptions){
 		interval: 5000,
 		swipe: true,
 		animateDuration: 1000,
-		animationEasing: 'easeInOut'
+		animationEasing: 'ease'
 	}, useroptions);
 	
 	// Init the slider
