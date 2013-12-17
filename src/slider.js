@@ -120,7 +120,10 @@ function simpleSlider(useroptions){
 	
 		// Check which fact is the current and show it
 		$(options.slidesContainer).find(options.slides).each(function(index){
-			$(this).transition({x: ($(this).data('index')-obj.currentSlide)*100+'%'}, options.animateDuration);
+			if ($.support.transition)
+				$(this).transition({x: ($(this).data('index')-obj.currentSlide)*100+'%'}, options.animateDuration);
+			else
+				$(this).animate({left: ($(this).data('index')-obj.currentSlide)*100+'%'}, options.animateDuration);
 		});
 		
 		// Show current slide bulb
