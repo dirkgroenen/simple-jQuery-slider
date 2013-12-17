@@ -3,6 +3,8 @@ Simple jQuery/CSS3 slider
 
 A simple slider that does what a simple slider has to do: slide slides!
 
+[a link](http://dirkgroenen.github.io/simple-jQuery-slider/)
+
 Installation
 ------------
 
