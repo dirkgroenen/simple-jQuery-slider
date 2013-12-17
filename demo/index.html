@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Simple jQuery slider</title> 
+		
+		<!-- Include demo stylesheet -->
+		<link href="style.css" rel="stylesheet" type="text/css">
+		
+		<!-- Get jQuery from CDN -->
+		<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+		<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+		
+		<!-- Include the slider scripts -->
+		<script type="text/javascript" src="../transit.js"></script>
+		<script type="text/javascript" src="../touchSwipe.js"></script>
+		<script type="text/javascript" src="../slider.js"></script>
+		
+		<script type="text/javascript">
+			$(document).ready(function(){
+				var options = {
+					slidesContainer: '.slider',
+					slides: '.slide',
+					swipe: false,
+					slideTracker: true,
+					slideTrackerID: 'slideposition',
+					slideOnInterval: true,
+					interval: 5000,
+					swipe: true,
+					animateDuration: 1000
+				};
+				
+				var slider = new simpleSlider(options);
+				slider.init();
+				
+				/* yes, that's all! */
+			});
+		</script>
+	</head>
+	<body>
+		<header id="top">
+			<div id="logo"><span class='logo'>Simple jQuery Slider</span><span class='dynamic'></span></div>
+		</header>
+	
+		
+		<div class='pagewrap'>
+			<div class='pageblock' id='fullscreen'>
+				<div class='slider'>
+					<div class='slide' style='background:#1DA1CD;'>
+						<div class='slidecontent'>
+							<h1>Lorem ipsum dolor</h1>
+							<h2>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam posuere cursus euismod.Aenean ut tortor leoing elit."</h2>
+						</div>
+					</div>
+					<div class='slide' style='background:#FDD26D;'>
+						<div class='slidecontent'>
+							<h1>Lorem ipsum dolor</h1>
+							<h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam posuere cursus euismod.Aenean ut tortor leo.</h2>
+						</div>
+					</div>
+					<div class='slide' style='background:#FF5D8A;'>
+						<div class='slidecontent'>
+							<h1>Lorem ipsum dolor</h1>
+							<h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam posuere cursus euismod.Aenean ut tortor leo.</h2>
+						</div>
+					</div>
+					<div class='slide' style='background:#68D286;'>
+						<div class='slidecontent'>
+							<h1>Lorem ipsum dolor</h1>
+							<h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam posuere cursus euismod.Aenean ut tortor leo.</h2>
+						</div>
+					</div>
+					<div class='slide' style='background:#A085C6;'>
+						<div class='slidecontent'>
+							<h1>Lorem ipsum dolor</h1>
+							<h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam posuere cursus euismod.Aenean ut tortor leo.</h2>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		
+	</body>
+</html>
