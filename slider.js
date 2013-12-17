@@ -1,58 +1,87 @@
-// Slider object
-function simpleSlider(slidesdom){
+function simpleSlider(useroptions){
 	var obj = this,sliderInterval;
 	obj.currentSlide = 0;
 	obj.totalSlides = 0;
 	
+	useroptions = (useroptions == undefined) ? {} : useroptions;
+	var options = $.extend({
+		slidesContainer: '.slider',
+		slides: '.slide',
+		swipe: false,
+		slideTracker: true,
+		slideTrackerID: 'slideposition',
+		slideOnInterval: true,
+		interval: 5000,
+		swipe: true,
+		animateDuration: 1000
+	}, useroptions);
+	
+	console.log(options);
+	
 	// Init the slider
 	obj.init = function(){
 		// Find the slides in the sliderdom and add the index attribute
-		$(slidesdom).find('.slide').each(function(index){
+		$(options.slidesContainer).find(options.slides).each(function(index){
 			$(this).attr('data-index', index);
 			$(this).css({x: index*100+'%'});
 		});
 		
 		// Count total slides
-		obj.totalSlides = $(slidesdom).find('.slide').length;
+		obj.totalSlides = $(options.slidesContainer).find(options.slides).length;
 		
-		// Add the slideposition div and add the indicators
-		$(slidesdom).append("<div id='slideposition'><ul></ul></div>");
-		for(var x = 0; x < obj.totalSlides;x++){
-			$(slidesdom).find('#slideposition ul').append('<li class="indicator" data-index="'+x+'"></li>');
+		if(options.slideTracker){
+			// Add the slideposition div and add the indicators
+			$(options.slidesContainer).append("<div id='"+ options.slideTrackerID +"'><ul></ul></div>");
+			for(var x = 0; x < obj.totalSlides;x++){
+				$(options.slidesContainer).find('#'+ options.slideTrackerID +' ul').append('<li class="indicator" data-index="'+x+'"></li>');
+			}
+			$(options.slidesContainer).find('#'+ options.slideTrackerID +' ul li[data-index="'+obj.currentSlide+'"]').addClass('active');
+				
+			// Make the slide indicators clickable
+			$(options.slidesContainer).find("#"+ options.slideTrackerID +" ul li").click(function(){
+				obj.nextSlide($(this).data('index'));
+			});
 		}
-		$(slidesdom).find('#slideposition ul li[data-index="'+obj.currentSlide+'"]').addClass('active');
-			
-		// Make the slide indicators clickable
-		$(slidesdom).find("#slideposition ul li").click(function(){
-			obj.nextSlide($(this).data('index'));
-		});
 		
 		// Start the slider interval
-		setSliderInterval();
+		if(options.slideOnInterval){
+			setSliderInterval();
+		}
 		
 		// Add grabbing hand
-		$(slidesdom).css('cursor','-webkit-grab');
-		$(slidesdom).css('cursor','-moz-grab');
-		$(slidesdom).css('cursor','grab');
-		
-		$(slidesdom).mousedown(function(){
-			$(slidesdom).css('cursor','-webkit-grabbing');
-			$(slidesdom).css('cursor','-moz-grabbing');
-			$(slidesdom).css('cursor','grabbing');
-		});
-		
-		$(slidesdom).mouseup(function(){
-			$(slidesdom).css('cursor','-webkit-grab');
-			$(slidesdom).css('cursor','-moz-grab');
-			$(slidesdom).css('cursor','grab');
-		});
+		if(options.swipe){
+			$(options.slidesContainer).css('cursor','-webkit-grab');
+			$(options.slidesContainer).css('cursor','-moz-grab');
+			$(options.slidesContainer).css('cursor','grab');
+			
+			$(options.slidesContainer).mousedown(function(){
+				$(options.slidesContainer).css('cursor','-webkit-grabbing');
+				$(options.slidesContainer).css('cursor','-moz-grabbing');
+				$(options.slidesContainer).css('cursor','grabbing');
+			});
+			
+			$(options.slidesContainer).mouseup(function(){
+				$(options.slidesContainer).css('cursor','-webkit-grab');
+				$(options.slidesContainer).css('cursor','-moz-grab');
+				$(options.slidesContainer).css('cursor','grab');
+			});
+			
+			$(options.slidesContainer +" "+ options.slides).swipe({
+				swipeLeft: function(event, direction, distance, duration, fingerCount){
+					obj.nextSlide();
+				},
+				swipeRight: function(event, direction, distance, duration, fingerCount){
+					obj.prevSlide();
+				}
+			});
+		}
 	}
 	
 	function setSliderInterval(){
 		clearInterval(sliderInterval);
 		sliderInterval = setInterval(function(){
 			obj.nextSlide();
-		},5000);
+		},options.interval);
 	}	
 	
 	// Go to a previous slide (calls the nextslide function with a currentslide number minus one
@@ -72,15 +101,17 @@ function simpleSlider(slidesdom){
 		}
 	
 		// Check which fact is the current and show it
-		$(slidesdom).find('.slide').each(function(index){
-			$(this).transition({x: ($(this).data('index')-obj.currentSlide)*100+'%'},1000);
+		$(options.slidesContainer).find(options.slides).each(function(index){
+			$(this).transition({x: ($(this).data('index')-obj.currentSlide)*100+'%'}, options.animateDuration);
 		});
 		
 		// Show current slide bulb
-		$(slidesdom).find('#slideposition ul li').removeClass('active');
-		$(slidesdom).find('#slideposition ul li[data-index="'+obj.currentSlide+'"]').addClass('active');
+		$(options.slidesContainer).find('#'+ options.slideTrackerID +' ul li').removeClass('active');
+		$(options.slidesContainer).find('#'+ options.slideTrackerID +' ul li[data-index="'+obj.currentSlide+'"]').addClass('active');
 		
 		// (Re)set the slider interval
-		setSliderInterval();
+		if(options.slideOnInterval){
+			setSliderInterval();
+		}
 	}
 }
