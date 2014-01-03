@@ -67,7 +67,7 @@ function simpleSlider(useroptions){
         }
 
         // Add grabbing hand
-        if(options.swipe){
+        if(options.swipe && jQuery().swipe){
             $(options.slidesContainer).css('cursor','-webkit-grab');
             $(options.slidesContainer).css('cursor','-moz-grab');
             $(options.slidesContainer).css('cursor','grab');
@@ -92,6 +92,9 @@ function simpleSlider(useroptions){
                     obj.prevSlide();
                 }
             });
+        }
+        else if(!jQuery().swipe && options.swipe == true){
+            console.warn("Duo the missing TouchSwipe.js swipe has been disabled.");
         }
     }
 
