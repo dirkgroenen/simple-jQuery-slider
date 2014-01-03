@@ -132,7 +132,7 @@ function simpleSlider(useroptions){
 
         // Check which fact is the current and show it
         $(options.slidesContainer).find(options.slides).each(function(index){
-            if ($.support.transition)
+            if ($.support.transition && jQuery().transition)
                 $(this).stop().transition({x: ($(this).data('index')-obj.currentSlide)*100+'%'}, options.animateDuration, options.animationEasing);
             else
                 $(this).stop().animate({left: ($(this).data('index')-obj.currentSlide)*100+'%'}, options.animateDuration);
