@@ -8,7 +8,7 @@ A simple slider that does what a simple slider has to do: slide slides!
 Installation
 ------------
 
-Include jQuery, simpleSlider.js, touchSwipe.js (optional if you want touch support) and transit.js in your head. Not using the transit.js from the src folder? Don't forget to change the `useTransitionEnd` to <b>true</b>.
+Include jQuery, simpleSlider.js, touchSwipe.js (optional if you want touch support) and transit.js in your `head`. Not using the transit.js from the src folder? Don't forget to change the `useTransitionEnd` to <b>true</b>.
 ```code
 <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
@@ -18,7 +18,7 @@ Include jQuery, simpleSlider.js, touchSwipe.js (optional if you want touch suppo
 <script type="text/javascript" src="simpleSlider.min.js"></script>
 ```
 
-Add a div to your site containing the slides. The standard name for these divs are .slider and .slide, but these can be changed in the options object
+Add a div to your site containing the slides. The standard name for these divs are `.slider` and `.slide`, but these can be changed in the options object
 ```code
 <div class='slider'>
 	<div class='slide'>
