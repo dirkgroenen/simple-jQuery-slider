@@ -8,7 +8,7 @@ A simple slider that does what a simple slider has to do: slide slides!
 Installation
 ------------
 
-Include jQuery, simpleSlider.js, touchSwipe.js (optional if you want touch support) and transit.js in your head
+Include jQuery, simpleSlider.js, touchSwipe.js (optional if you want touch support) and transit.js in your head. Not using the transit.js from the src folder? Don't forget to change the `useTransitionEnd` to <b>true</b>.
 ```code
 <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
@@ -38,7 +38,7 @@ Add a div to your site containing the slides. The standard name for these divs a
 
 Create and initilize the slider object
 ```code
-$(document).ready(function(){	
+$(document).ready(function(){
 	var slider = new simpleSlider();
 	slider.init();
 });
@@ -48,20 +48,20 @@ Custom options
 --------------
 You can also control the options of the simpleSlider. Just parse an object with the options into the simpleSlider().
 ```code
-$(document).ready(function(){	
+$(document).ready(function(){
 	// Default options
 	var options = {
 		slidesContainer: '.slider', // The div that contains the slides
 		slides: '.slide', // The name of a slide in the slidesContainer
 		swipe: true,	// Add possibility to Swipe > note that you have to include touchSwipe for this
-		slideTracker: true, // Add a UL with list items to track the current slide 
+		slideTracker: true, // Add a UL with list items to track the current slide
 		slideTrackerID: 'slideposition', // The name of the UL that tracks the slides
 		slideOnInterval: true, // Slide on interval
 		interval: 5000, // Interval to slide on if slideOnInterval is enabled
 		animateDuration: 1500, // Duration of an animation
 		animationEasing: 'easeInOut' // Accepts: linear ease in out in-out snap easeOutCubic easeInOutCubic easeInCirc easeOutCirc easeInOutCirc easeInExpo easeOutExpo easeInOutExpo easeInQuad easeOutQuad easeInOutQuad easeInQuart easeOutQuart easeInOutQuart easeInQuint easeOutQuint easeInOutQuint easeInSine easeOutSine easeInOutSine easeInBack easeOutBack easeInOutBack
 	};
-	
+
 	var slider = new simpleSlider(options);
 	slider.init();
 });
