@@ -41,7 +41,10 @@ function simpleSlider(useroptions){
         $(options.slidesContainer).find(options.slides).each(function(index){
             $(this).attr('data-index', index);
              // A fixed width is needed for the IE left animation
-            $(this).css({x: index*100+'%',width: $(this).outerWidth()});
+            $(this).css({
+                x: index*100+'%',
+                width: $(this).outerWidth()
+            });
         });
 
         // Count total slides
