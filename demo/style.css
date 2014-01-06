@@ -7,7 +7,7 @@ html,body{
 	background-color: #fff;
 	width: 100%;
 	color:#222222;
-}	
+}
 
 body.hidden{
 	overflow: hidden;
@@ -80,7 +80,7 @@ header#top #logo{
 	left: 0;
 	float: left;
 	position: absolute;
-	
+
 }
 
 .pageblock#fullscreen .slider .slide .slidecontent{
@@ -92,19 +92,19 @@ header#top #logo{
 }
 
 
-.pageblock#fullscreen .slider #slideposition{
+.pageblock#fullscreen #slideposition{
 	position: absolute;
 	bottom: 50px;
 	left: 50%;
 }
 
-.pageblock#fullscreen .slider #slideposition ul{
+.pageblock#fullscreen #slideposition ul{
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
 }
 
-.pageblock#fullscreen .slider #slideposition ul li.indicator{
+.pageblock#fullscreen #slideposition ul li.indicator{
 	display: inline-block;
 	height: 10px;
 	width: 10px;
@@ -118,6 +118,6 @@ header#top #logo{
 	cursor: pointer;
 }
 
-.pageblock#fullscreen .slider #slideposition ul li.indicator.active{
+.pageblock#fullscreen #slideposition ul li.indicator.active{
 	background: white;
 }

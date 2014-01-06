@@ -1,37 +1,37 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Simple jQuery slider</title> 
-		
+		<title>Simple jQuery slider</title>
+
 		<!-- Include demo stylesheet -->
 		<link href="style.css" rel="stylesheet" type="text/css">
-		
+
 		<!-- Get jQuery from CDN -->
 		<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 		<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-		
+
 		<!-- Include the slider scripts -->
 		<script type="text/javascript" src="../src/transit.js"></script>
 		<script type="text/javascript" src="../src/touchSwipe.js"></script>
-		<script type="text/javascript" src="../src/simpleSlider.min.js"></script>
-		
+		<script type="text/javascript" src="../src/simpleSlider.js"></script>
+
 		<script type="text/javascript">
 			$(document).ready(function(){
 				var options = {
 					slidesContainer: '.slider', // The div that contains the slides
 					slides: '.slide', // The name of a slide in the slidesContainer
 					swipe: true,	// Add possibility to Swipe > note that you have to include touchSwipe for this
-					slideTracker: true, // Add a UL with list items to track the current slide 
+					slideTracker: true, // Add a UL with list items to track the current slide
 					slideTrackerID: 'slideposition', // The name of the UL that tracks the slides
 					slideOnInterval: true, // Slide on interval
 					interval: 5000, // Interval to slide on if slideOnInterval is enabled
 					animateDuration: 1500, // Duration of an animation
-					animationEasing: 'ease' // Accepts: linear ease in out in-out snap easeOutCubic easeInOutCubic easeInCirc easeOutCirc easeInOutCirc easeInExpo easeOutExpo easeInOutExpo easeInQuad easeOutQuad easeInOutQuad easeInQuart easeOutQuart easeInOutQuart easeInQuint easeOutQuint easeInOutQuint easeInSine easeOutSine easeInOutSine easeInBack easeOutBack easeInOutBack
+					animationEasing: 'ease', // Accepts: linear ease in out in-out snap easeOutCubic easeInOutCubic easeInCirc easeOutCirc easeInOutCirc easeInExpo easeOutExpo easeInOutExpo easeInQuad easeOutQuad easeInOutQuad easeInQuart easeOutQuart easeInOutQuart easeInQuint easeOutQuint easeInOutQuint easeInSine easeOutSine easeInOutSine easeInBack easeOutBack easeInOutBack
+					pauseOnHover: false // Pause when user hovers the slide container
 				};
-				
+
 				var slider = new simpleSlider(options);
 				slider.init();
-				
 				/* yes, that's all! */
 			});
 		</script>
@@ -40,8 +40,8 @@
 		<header id="top">
 			<div id="logo"><span class='logo'>Simple jQuery Slider</span><span class='dynamic'></span></div>
 		</header>
-	
-		
+
+
 		<div class='pagewrap'>
 			<div class='pageblock' id='fullscreen'>
 				<div class='slider'>
@@ -79,6 +79,6 @@
 			</div>
 
 		</div>
-		
+
 	</body>
 </html>

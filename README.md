@@ -59,7 +59,8 @@ $(document).ready(function(){
 		slideOnInterval: true, // Slide on interval
 		interval: 5000, // Interval to slide on if slideOnInterval is enabled
 		animateDuration: 1500, // Duration of an animation
-		animationEasing: 'easeInOut' // Accepts: linear ease in out in-out snap easeOutCubic easeInOutCubic easeInCirc easeOutCirc easeInOutCirc easeInExpo easeOutExpo easeInOutExpo easeInQuad easeOutQuad easeInOutQuad easeInQuart easeOutQuart easeInOutQuart easeInQuint easeOutQuint easeInOutQuint easeInSine easeOutSine easeInOutSine easeInBack easeOutBack easeInOutBack
+		animationEasing: 'easeInOut', // Accepts: linear ease in out in-out snap easeOutCubic easeInOutCubic easeInCirc easeOutCirc easeInOutCirc easeInExpo easeOutExpo easeInOutExpo easeInQuad easeOutQuad easeInOutQuad easeInQuart easeOutQuart easeInOutQuart easeInQuint easeOutQuint easeInOutQuint easeInSine easeOutSine easeInOutSine easeInBack easeOutBack easeInOutBack
+		pauseOnHover: false // Pause when user hovers the slide container
 	};
 
 	var slider = new simpleSlider(options);
@@ -80,4 +81,4 @@ If enabled the slider automatically creates a list with list-items that you can 
 
 Supported browser
 -----------------
-For as far as I can test the script works in IE7+, Chrome and Firefox. I assume that the script also works in browsers like Safari.
+SimpleSlide works in Chrome, Firefox, Safari and Internet Explorer 7+.
