@@ -166,4 +166,4 @@ var simpleSlider = function(useroptions){
             setSliderInterval();
         });
     }
-}
+};
