@@ -81,7 +81,6 @@ Examples
 --------
 Simple-jQuery-Slider is used in the following websites. You can check them out if you want to see the slider in aciton!
 
-[Demo Site #1](http://dirkgroenen.github.io/simple-jQuery-slider/)
 [Demo Site #2](http://ondernemenanno2014.nl/)
 
 Supported browser
