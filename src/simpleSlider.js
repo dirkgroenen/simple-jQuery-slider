@@ -1,5 +1,5 @@
 /*
-    Version 2.1
+    Version 2.1.1
     Simple jQuery Slider is just what is says it is: a simple but powerfull jQuery slider.
     Copyright (C) 2013 - 2014 - Dirk Groenen [Bitlabs Development]
 
@@ -118,8 +118,8 @@ var simpleSlider = function(useroptions){
     // Bind the function that recalculates the width of each slide on a resize.
     $(window).resize(function(){
         $(options.slidesContainer).find(options.slides).each(function(index){
-            // Reset width to auto; otherwise it will keep the same width as before
-            $(this).css('width','auto');
+            // Reset width; otherwise it will keep the same width as before
+            $(this).css('width','');
             $(this).css({x: index*100+'%',width: $(this).outerWidth()});
         });
     });
