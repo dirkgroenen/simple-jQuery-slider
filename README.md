@@ -34,11 +34,10 @@ Add a div to your site containing the slides. The standard name for these divs a
 </div>
 ```
 
-Create and initilize the slider object
+Create the slider
 ```code
 $(document).ready(function(){
-	var slider = new simpleSlider();
-	slider.init();
+	$(".slider").simpleSlider();
 });
 ```
 
@@ -49,7 +48,6 @@ You can also control the options of the simpleSlider. Just parse an object with 
 $(document).ready(function(){
 	// Default options
 	var options = {
-		slidesContainer: '.slider', // The div that contains the slides
 		slides: '.slide', // The name of a slide in the slidesContainer
 		swipe: true,	// Add possibility to Swipe > note that you have to include touchSwipe for this
 		slideTracker: true, // Add a UL with list items to track the current slide
@@ -61,18 +59,22 @@ $(document).ready(function(){
 		pauseOnHover: false // Pause when user hovers the slide container
 	};
 
-	var slider = new simpleSlider(options);
-	slider.init();
+	$(".slider").simpleSlider(options);
 });
 ```
 
 Control the slider
 --------------
-Now you can control the slider using the following functions
+You have to get the data from the dom element if you want to control the slider. The following code shows you how to do that
 ```code
-slider.nextSlide(); // Go to the next slide
-slider.prevSlide(); // Go to the previous slide
-slider.nextSlide(slidenumber); // Go to the given slide
+$(document).ready(function(){
+	$(".slider").simpleSlider();
+	var slider = $(".slider").data("simpleslider");
+
+	slider.nextSlide(); // Go to the next slide
+	slider.prevSlide(); // Go to the previous slide
+	slider.nextSlide(slidenumber); // Go to the given slide
+});
 ```
 
 If enabled the slider automatically creates a list with list-items that you can use to control the slider.

@@ -18,7 +18,6 @@
 		<script type="text/javascript">
 			$(document).ready(function(){
 				var options = {
-					slidesContainer: '.slider', // The div that contains the slides
 					slides: '.slide', // The name of a slide in the slidesContainer
 					swipe: true,	// Add possibility to Swipe > note that you have to include touchSwipe for this
 					slideTracker: true, // Add a UL with list items to track the current slide
@@ -30,8 +29,7 @@
 					pauseOnHover: false // Pause when user hovers the slide container
 				};
 
-				var slider = new simpleSlider(options);
-				slider.init();
+				$(".slider").simpleSlider(options);
 				/* yes, that's all! */
 			});
 		</script>
