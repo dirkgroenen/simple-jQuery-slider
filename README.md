@@ -79,11 +79,11 @@ If enabled the slider automatically creates a list with list-items that you can 
 
 Examples
 --------
-Simple-jQuery-Slider is used in the following websites. You can check them out if you want to see the slider in aciton!
+Simple-jQuery-Slider is used in the following websites. You can check them out if you want to see the slider in action!
 
 [Demo site #1](http://simpleslider.bitlabsbeta.nl/)
 [Demo Site #2](http://ondernemenanno2014.nl/)
 
 Supported browser
 -----------------
-SimpleSlide works in Chrome, Firefox, Safari and Internet Explorer 7+.
+SimpleSlider has been tested in Chrome, Firefox, Safari and Internet Explorer 7+.
