@@ -1,7 +1,7 @@
 /*
-    Version 2.0
+    Version 2.1
     Simple jQuery Slider is just what is says it is: a simple but powerfull jQuery slider.
-    Copyright (C) 2013 - Dirk Groenen [Bitlabs Development]
+    Copyright (C) 2013 - 2014 - Dirk Groenen [Bitlabs Development]
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -35,11 +35,18 @@ var simpleSlider = function(useroptions){
         swipe: true,
         animateDuration: 1000,
         animationEasing: 'ease',
-        pauseOnHover: false
+        pauseOnHover: false,
+        updateTransit: true // Change this to false is you dont want the slider to update the transit useTransitionEnd to true
     }, useroptions);
 
     // Init the slider
     obj.init = function(){
+        // If transit is included and useTransitionEnd == false we will change this to true (better animation performance).
+        // Unless the user changed updateTransit to false
+        if(options.updateTransit && $.support.transition && jQuery().transition && !$.transit.useTransitionEnd){
+            $.transit.useTransitionEnd = true;
+        }
+
         // Find the slides in the sliderdom and add the index attribute
         $(options.slidesContainer).find(options.slides).each(function(index){
             // Give each slide a data-index so we can control it later on

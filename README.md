@@ -8,7 +8,7 @@ A simple slider that does what a simple slider has to do: slide slides!
 Installation
 ------------
 
-Include jQuery, simpleSlider.js, touchSwipe.js (optional if you want touch support) and transit.js in your `head`. Not using the transit.js from the src folder? Don't forget to change the `useTransitionEnd` to <b>true</b>.
+Include jQuery, simpleSlider.js, touchSwipe.js (optional if you want touch support) and transit.js in your `head`. The slider will automatically change transit's `useTransitionEnd` property to `true`. You can disable this by setting `updateTransit: false` in your options.
 ```code
 <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
