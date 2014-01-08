@@ -13,7 +13,7 @@ Include jQuery, simpleSlider.js, touchSwipe.js (optional if you want touch suppo
 
 <script type="text/javascript" src="transit.js"></script>
 <script type="text/javascript" src="touchSwipe.js"></script>
-<script type="text/javascript" src="simpleSlider.min.js"></script>
+<script type="text/javascript" src="simpleSlider.js"></script>
 ```
 
 Add a div to your site containing the slides. The standard name for these divs are `.slider` and `.slide`, but these can be changed in the options object
