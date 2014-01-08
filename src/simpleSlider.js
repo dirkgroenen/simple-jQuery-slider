@@ -1,5 +1,5 @@
 /*
-    Version 2.3.0
+    Version 2.3.1
     Simple jQuery Slider is just what is says it is: a simple but powerfull jQuery slider.
     Copyright (C) 2013 - 2014 - Dirk Groenen [Bitlabs Development]
 
