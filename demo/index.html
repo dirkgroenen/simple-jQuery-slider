@@ -31,6 +31,14 @@
 
 				$(".slider").simpleSlider(options);
 				/* yes, that's all! */
+
+				var slider = $(".slider").data("simpleslider");
+				$(".slider").on("beforeSliding", function(event){
+					console.log(event);
+				});
+				$(".slider").on("afterSliding", function(event){
+					console.log(event);
+				});
 			});
 		</script>
 	</head>
