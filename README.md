@@ -79,6 +79,24 @@ $(document).ready(function(){
 
 If enabled the slider automatically creates a list with list-items that you can use to control the slider.
 
+Events
+------
+SimpleSlider will trigger a `beforeSliding` and `afterSliding` event. You can bind on these using the following code:
+```code
+	$(".slider").simpleSlider();
+
+	$(".slider").on("beforeSliding", function(event){
+		// Event.prevSlide: previous slide ID
+		// Event.newSlide: coming slide ID
+	});
+
+	$(".slider").on("afterSliding", function(event){
+		// Event.prevSlide: previous slide ID
+		// Event.newSlide: coming slide ID
+	});
+```
+The `afterSliding` is triggered after the animation completed.
+
 Examples
 --------
 Simple-jQuery-Slider is used in the following websites. You can check them out if you want to see the slider in action!

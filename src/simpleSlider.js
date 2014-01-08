@@ -1,5 +1,5 @@
 /*
-    Version 2.2.0
+    Version 2.3.0
     Simple jQuery Slider is just what is says it is: a simple but powerfull jQuery slider.
     Copyright (C) 2013 - 2014 - Dirk Groenen [Bitlabs Development]
 
@@ -142,18 +142,44 @@
         // Go to a next slide (function is also used for the previous slide and goto slide functions).
         // If a paramater is given it will go to the given slide
         obj.nextSlide = function(slide){
+            // Cache the previous slide number and set slided to false
+            var prevSlide = obj.currentSlide,
+                slided = false;
+
             if(slide === undefined)
                 obj.currentSlide = (obj.currentSlide < (obj.totalSlides-1)) ? obj.currentSlide += 1 : 0 ;
             else
                 obj.currentSlide = slide;
+
+            // Create trigger point before a slide slides. Trigger wil return the prev and coming slide number
+            $(element).trigger({
+                type: "beforeSliding",
+                prevSlide: prevSlide,
+                newSlide: obj.currentSlide
+            });
 
             // Slide animation, here we determine if we can use CSS transitions (transit.js) or have to use jQuery animate
             $(options.slidesContainer).find(options.slides).each(function(index){
                 if ($.support.transition && jQuery().transition)
                     $(this).stop().transition({x: ($(this).data('index')-obj.currentSlide)*100+'%'}, options.animateDuration, options.animationEasing);
                 else
-                    $(this).stop().animate({left: ($(this).data('index')-obj.currentSlide)*100+'%'}, options.animateDuration);
+                    $(this).stop().animate({left: ($(this).data('index')-obj.currentSlide)*100+'%'}, options.animateDuration, triggerSlideEnd);
             });
+
+            // Somehow the callback from $.transition doesn't work, so we create ow custom bind here
+            $(options.slidesContainer).on('oTransitionEnd webkitTransitionEnd oTransitionEnd otransitionend', triggerSlideEnd);
+
+            // Create trigger point after a slide slides. All the slides return a TransitionEnd; to prevent a repeating trigger we keep a slided var
+            function triggerSlideEnd(){
+                if(!slided){
+                    $(element).trigger({
+                        type: "afterSliding",
+                        prevSlide: prevSlide,
+                        newSlide: obj.currentSlide
+                    });
+                    slided = true;
+                }
+            }
 
             // Show current slide bulb
             $('#'+ options.slideTrackerID +' ul li').removeClass('active');
