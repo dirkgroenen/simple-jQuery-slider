@@ -1,7 +1,7 @@
 html,body{
 	margin: 0;
 	padding: 0;
-	font-family: Helvetica, Arial, Verdana;
+	font-family: "Lato", Arial, Verdana;
 	font-size: 20px;
 	height: 100%;
 	background-color: #fff;
@@ -39,8 +39,10 @@ header#top #logo{
 	float: left;
 	margin: 16px 0 0 30px;
 	font-weight: normal;
-	font-size: 42px;
-	border-bottom: 5px solid black;
+	font-size: 45px;
+	color: white;
+	text-transform: uppercase;
+	text-shadow: 0 0 15px rgba(0,0,0,0.5);
 }
 
 .pagewrap{
@@ -50,6 +52,33 @@ header#top #logo{
 .pageblock{
 	width: 100%;
 }
+
+.pagewrap .fb-like{
+	position: fixed;
+	left: 30px;
+	top: 75px;
+	z-index: 100;
+}
+
+.pagewrap .githubbuttons{
+	position: fixed;
+	left: 220px;
+	top: 75px;
+	z-index: 100;
+}
+
+.pagewrap .copy{
+	font-size: 10px;
+	bottom: 20px;
+	left: 30px;
+	z-index: 100;
+	position: absolute;
+	color: white;
+}
+
+.pagewrap .copy a,.pagewrap .copy a:hover{
+	color: white;
+} 
 
 .pageblock#fullscreen{
 	height: 100%;
@@ -80,17 +109,80 @@ header#top #logo{
 	left: 0;
 	float: left;
 	position: absolute;
-
 }
 
 .pageblock#fullscreen .slider .slide .slidecontent{
 	position: absolute;
 	top: 50%;
-	width: 1000px;
-	padding: 0 100px;
-	margin-top: -125px;
+	width: 100%;
+	margin-top: -150px;
+	text-align: center;
 }
 
+.pageblock#fullscreen .slider .slide .slidecontent h1{
+	text-shadow: 0 0 15px rgba(0,0,0,0.5);
+	font-weight: bold;
+	font-size: 120px;
+	margin: 20px 0 30px 0;
+	padding: 0;
+	line-height: 115px;
+}
+
+.pageblock#fullscreen .slider .slide .slidecontent .headersur{
+	font-size: 30px;
+	text-shadow: 0 0 10px rgba(0,0,0,0.5);
+	color: #f0f0f0;
+	font-style: italic;
+	display: block;
+}
+
+.pageblock#fullscreen .slider .slide .slidecontent .button{
+	padding: 10px 25px;
+	border: 3px solid white;
+	text-transform: uppercase;
+	background: transparent;
+	background: rgba(0,0,0,.2);
+	color: white;
+	font-size: 15px;
+	font-weight: bold;
+	display: inline-block;
+	cursor: pointer;
+	letter-spacing: 1px;
+	margin: 20px 0;
+	line-height: 20px;
+}
+
+.pageblock#fullscreen .slider .slide .slidecontent .button a,.pageblock#fullscreen .slider .slide .slidecontent .button a:hover{
+	text-decoration: none !important;
+	color: white;
+}
+
+.pageblock#fullscreen .slider .slide .slidecontent .button:hover{
+	background: rgba(0,0,0,.3);
+}
+
+.pageblock#fullscreen .slider .slide .slidecontent .text{
+	width: 900px;
+	margin: 0 auto;
+	line-height: 28px;
+}
+
+.pageblock#fullscreen .slider .slide .slidecontent .text a{
+	color: white;
+	text-decoration: underline;
+}
+
+.pageblock#fullscreen .slider .slide .slidecontent .text a:hover{
+	text-decoration: none;
+}
+
+.pageblock#fullscreen .slider .slide .slidecontent .text xmp{
+	font-size: 13px;
+	text-align: left;
+	border: 1px solid white;
+	background: rgba(0,0,0,0.1);
+	padding: 10px 15px;
+}
 
 .pageblock#fullscreen #slideposition{
 	position: absolute;
