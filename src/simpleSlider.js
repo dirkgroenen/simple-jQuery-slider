@@ -163,7 +163,7 @@
             });
 
             // Somehow the callback from $.transition doesn't work, so we create ow custom bind here
-            $(options.slidesContainer).on('oTransitionEnd webkitTransitionEnd oTransitionEnd otransitionend', triggerSlideEnd);
+            $(options.slidesContainer).on('oTransitionEnd webkitTransitionEnd oTransitionEnd otransitionend transitionend', triggerSlideEnd);
 
             // Create trigger point after a slide slides. All the slides return a TransitionEnd; to prevent a repeating trigger we keep a slided var
             function triggerSlideEnd(){
