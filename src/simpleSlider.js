@@ -70,7 +70,10 @@
 
                 // Make the slide indicators clickable
                 $("#"+ options.slideTrackerID +" ul li").click(function(){
-                    obj.nextSlide($(this).data('index'));
+                    if(!($(this).hasClass("active")))
+                	{
+                		obj.nextSlide($(this).data('index'));
+                	}
                 });
             }
 
