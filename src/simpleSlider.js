@@ -69,7 +69,7 @@
                 $('#'+ options.slideTrackerID +' ul li[data-index="'+obj.currentSlide+'"]').addClass('active');
 
                 // Make the slide indicators clickable
-                $("#"+ options.slideTrackerID +" ul li").click(function(){
+                $("#"+ options.slideTrackerID +" ul li:not(.active)").click(function(){
                     obj.nextSlide($(this).data('index'));
                 });
             }
