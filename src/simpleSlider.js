@@ -1,5 +1,5 @@
 /*
-    Version 2.3.3
+    Version 2.3.4
     The MIT License (MIT)
 
     Simple jQuery Slider is just what is says it is: a simple but powerfull jQuery slider.
@@ -69,8 +69,9 @@
                 $('#'+ options.slideTrackerID +' ul li[data-index="'+obj.currentSlide+'"]').addClass('active');
 
                 // Make the slide indicators clickable
-                $("#"+ options.slideTrackerID +" ul li:not(.active)").click(function(){
-                    obj.nextSlide($(this).data('index'));
+                $("#"+ options.slideTrackerID +" ul li").click(function(){
+                    if(!($(this).hasClass("active")))
+                        obj.nextSlide($(this).data('index'));
                 });
             }
 

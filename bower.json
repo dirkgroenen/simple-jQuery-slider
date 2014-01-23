@@ -8,7 +8,7 @@
     "slider",
     "simple"
   ],
-  "version": "2.3.3",
+  "version": "2.3.4",
   "main": "src/simpleSlider.js",
   "dependencies": {
     "jquery": "*",
