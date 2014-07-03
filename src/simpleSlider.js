@@ -49,11 +49,19 @@
                 // Give each slide a data-index so we can control it later on
                 $(this).attr('data-index', index);
 
-                 // A fixed width is needed for the IE left animation. Here we give each slide a width
-                $(this).css({
-                    x: index*100+'%',
-                    width: $(this).outerWidth()
-                });
+                // A fixed width is needed for the IE left animation. Here we give each slide a width                
+                if ($.support.transition && jQuery().transition){
+                    $(this).css({
+                        x: index*100+'%',
+                        width: $(this).outerWidth()
+                    });
+                }
+                else{
+                    $(this).css({
+                        left: index*100+'%',
+                        width: $(this).outerWidth()
+                    });
+                }
             });
 
             // Count the total slides
