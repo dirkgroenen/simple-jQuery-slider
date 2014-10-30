@@ -1,5 +1,5 @@
 /*
-    Version 2.4.0
+    Version 2.4.1
     The MIT License (MIT)
 
     Simple jQuery Slider is just what is says it is: a simple but powerfull jQuery slider.
@@ -151,7 +151,7 @@
 				
 				cacheWidth = ($(this).outerWidth() > cacheWidth) ? $(this).outerWidth() : cacheWidth;
 				
-                $(this).css({x: index*100+'%', width: cacheWidth});
+                $(this).css({x: ($(this).data('index') - obj.currentSlideindex) * 100 + '%', width: cacheWidth});
             });
         });
 
