@@ -188,6 +188,7 @@ header#top #logo{
 	position: absolute;
 	bottom: 50px;
 	left: 50%;
+	z-index: 500;
 }
 
 .pageblock#fullscreen #slideposition ul{
