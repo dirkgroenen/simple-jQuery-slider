@@ -1,5 +1,5 @@
 /*
-    Version 2.4.1
+    Version 2.4.2
     The MIT License (MIT)
 
     Simple jQuery Slider is just what is says it is: a simple but powerfull jQuery slider.
@@ -44,9 +44,12 @@
             if(options.updateTransit && $.support.transition && jQuery().transition && !$.transit.useTransitionEnd){
                 $.transit.useTransitionEnd = true;
             }
-		
+
+            // Count the total slides
+            obj.totalSlides = $(options.slidesContainer).find(options.slides).length;
+
 			var cacheWidth = 0;
-		
+		  
             // Find the slides in the sliderdom and add the index attribute
             $(options.slidesContainer).find(options.slides).each(function(index){
                 // Give each slide a data-index so we can control it later on
@@ -58,14 +61,14 @@
                      if($.support.transition !== undefined){
                         $(this).css({
                             x: index * 100 + '%',
-                            'z-index': index,
+                            'z-index': obj.totalSlides - index,
                             width: cacheWidth
                         });
                      }
                      else{
                         $(this).css({
                             left: index * 100 + '%',
-                            'z-index': index,
+                            'z-index': obj.totalSlides - index,
                             width: cacheWidth
                         });
                      }
@@ -76,16 +79,13 @@
                     $(this).css({
                         left: 0,
                         top: 0,
-                        'z-index': index,
+                        'z-index': obj.totalSlides - index,
                         width: cacheWidth,
                         opacity: alpha
                     });
                  }
 				
             });
-
-            // Count the total slides
-            obj.totalSlides = $(options.slidesContainer).find(options.slides).length;
 
             // Place the slideTracker after the container if enabled in the options
             if(options.slideTracker){
