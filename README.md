@@ -16,7 +16,7 @@ Include jQuery, simpleSlider.js, touchSwipe.js (optional if you want touch suppo
 <script type="text/javascript" src="jquery.simpleslider.js"></script>
 ```
 
-Add a div to your site containing the slides. The standard name for these divs are `.slider` and `.slide`, but these can be changed in the options object
+Add a div to your site containing the slides. The standard name for these divs are `.slider` and `.slide`, but these can be changed in the options object.
 ```code
 <div class='slider'>
 	<div class='slide'>
@@ -32,6 +32,25 @@ Add a div to your site containing the slides. The standard name for these divs a
 		</div>
 	</div>
 </div>
+```
+
+After creating the HTML you have to add some css. This can be as short and simple as:
+```
+.slider{
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	position: relative;
+}
+
+.slide{
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	float: left;
+	position: absolute;
+}
 ```
 
 Create the slider
