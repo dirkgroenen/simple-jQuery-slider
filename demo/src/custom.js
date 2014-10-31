@@ -14,6 +14,11 @@ $(document).ready(function(){
         pauseOnHover: false // Pause when user hovers the slide container
     };
 
+
+    $(".slider").on("init", function(event){
+        console.log(event);
+    });
+
     $(".slider").simpleSlider(options);
     mainslider = $(".slider").data("simpleslider");
     /* yes, that's all! */

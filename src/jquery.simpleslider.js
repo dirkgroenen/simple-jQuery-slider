@@ -84,7 +84,7 @@
                         opacity: alpha
                     });
                  }
-				
+
             });
 
             // Place the slideTracker after the container if enabled in the options
@@ -139,6 +139,12 @@
             else if(!jQuery().swipe && options.swipe === true){
                 console.warn("Duo the missing TouchSwipe.js swipe has been disabled.");
             }
+
+            // Add on init event
+            $(element).trigger({
+                type: "init",
+                totalSlides: obj.totalSlides
+            });
         }();
 
         // Bind the function that recalculates the width of each slide on a resize.

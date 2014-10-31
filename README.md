@@ -82,18 +82,23 @@ If enabled the slider automatically creates a list with list-items that you can 
 
 Events
 ------
-SimpleSlider will trigger a `beforeSliding` and `afterSliding` event. You can bind on these using the following code:
+SimpleSlider will trigger a `init`, `beforeSliding` and `afterSliding` event. You can bind on these using the following code:
 ```code
+	$(".slider").on("init", function(event){
+		// event.totalSlides: total number of slides
+	});
+	// It's important to bind the init event before initializing simpleSlider!
+
 	$(".slider").simpleSlider();
 
 	$(".slider").on("beforeSliding", function(event){
-		// Event.prevSlide: previous slide ID
-		// Event.newSlide: coming slide ID
+		// event.prevSlide: previous slide ID
+		// event.newSlide: coming slide ID
 	});
 
 	$(".slider").on("afterSliding", function(event){
-		// Event.prevSlide: previous slide ID
-		// Event.newSlide: coming slide ID
+		// event.prevSlide: previous slide ID
+		// event.newSlide: coming slide ID
 	});
 ```
 The `afterSliding` is triggered after the animation completed.
