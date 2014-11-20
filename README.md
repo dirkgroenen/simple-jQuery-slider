@@ -6,13 +6,12 @@ A simple slider that does what a simple slider has to do: slide slides!
 Installation
 ------------
 
-Include jQuery, simpleSlider.js, touchSwipe.js (optional if you want touch support) and transit.js in your `head`. The slider will automatically change transit's `useTransitionEnd` property to `true`. You can disable this by setting `updateTransit: false` in your options.
+Include jQuery, simpleSlider.js and transit.js in your `head`. The slider will automatically change transit's `useTransitionEnd` property to `true`. You can disable this by setting `updateTransit: false` in your options.
 ```code
 <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 
 <script type="text/javascript" src="transit.js"></script>
-<script type="text/javascript" src="touchswipe.js"></script>
 <script type="text/javascript" src="jquery.simpleslider.js"></script>
 ```
 
@@ -68,7 +67,8 @@ $(document).ready(function(){
 	// Default options
 	var options = {
 		slides: '.slide', // The name of a slide in the slidesContainer
-		swipe: true,	// Add possibility to Swipe > note that you have to include touchSwipe for this
+		swipe: true,	// Add possibility to Swipe
+		magneticSwipe: true, // Add 'magnetic' swiping. When the user swipes over the screen the slides will attach to the mouse's position
 		transition: "slide", // Accepts "slide" and "fade" for a slide or fade transition
 		slideTracker: true, // Add a UL with list items to track the current slide
 		slideTrackerID: 'slideposition', // The name of the UL that tracks the slides
