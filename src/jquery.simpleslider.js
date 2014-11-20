@@ -1,5 +1,5 @@
 /*
-    Version 2.4.2
+    Version 2.5.0
     The MIT License (MIT)
 
     Simple jQuery Slider is just what is says it is: a simple but powerfull jQuery slider.
@@ -30,6 +30,7 @@
             slideOnInterval: true,
             interval: 5000,
             swipe: true,
+            magneticSwipe: true, 
 			transition: "slide",
             animateDuration: 1000,
             animationEasing: 'ease',
@@ -37,7 +38,9 @@
             updateTransit: true // Change this to false is you dont want the slider to update the transit useTransitionEnd to true
         }, useroptions);
 
-        // Init the slider
+        /*
+         * Method to build and init the slider
+         */
         obj.init = function(){
             // If transit is included and useTransitionEnd == false we will change this to true (better animation performance).
             // Unless the user changed updateTransit to false
@@ -109,37 +112,81 @@
             }
 
             // Change the cursor with a grabbing hand that simulates the swiping on desktops
-            if(options.swipe && jQuery().swipe){
+            if(options.swipe || options.magneticSwipe){
+                // Set grabbing mouse cursor
                 $(options.slidesContainer).css('cursor','-webkit-grab');
                 $(options.slidesContainer).css('cursor','-moz-grab');
                 $(options.slidesContainer).css('cursor','grab');
 
-                $(options.slidesContainer).mousedown(function(){
+                // Set vars for swiping
+                var isDragging = false;
+                var startPosition = {x: 0, y: 0};
+                var percentageMove = 0;
+                var slideWidth = $(options.slidesContainer).width();
+
+                // Check which touch events to use
+                var touchstartEvent = (window.navigator.msPointerEnabled) ? "MSPointerDown" : "touchstart";
+                var touchmoveEvent = (window.navigator.msPointerEnabled) ? "MSPointerMove" : "touchmove";
+                var touchendEvent = (window.navigator.msPointerEnabled) ? "MSPointerUp" : "touchend";
+
+                // Bind the mousedown or touchstart event
+                $(options.slidesContainer).on(touchstartEvent + " mousedown", function(e){
+                    // Set isDragging on true
+                    isDragging = true;
+                    
+                    // Save start coordinates
+                    startPosition = {
+                        x: (e.pageX != undefined) ? e.pageX : e.originalEvent.touches[0].pageX,
+                        y: (e.pageY != undefined) ? e.pageY : e.originalEvent.touches[0].pageY
+                    };
+
+                    // Reset transition animation
+                    if(options.magneticSwipe)
+                        $(options.slidesContainer).find(options.slides).css('transition', 'none');
+
+                    // Reset percentage move
+                    percentageMove = 0;
+
+                    // Set mouse cursor
                     $(options.slidesContainer).css('cursor','-webkit-grabbing');
                     $(options.slidesContainer).css('cursor','-moz-grabbing');
                     $(options.slidesContainer).css('cursor','grabbing');
                 });
 
-                $(options.slidesContainer).mouseup(function(){
+                // Bind the mousemove or touchmove event
+                $(options.slidesContainer).on(touchmoveEvent + " mousemove", function(e){
+                    if(isDragging){
+                        // Calculate given distance in pixels to percentage
+                        var x = (e.pageX != undefined) ? e.pageX : e.originalEvent.touches[0].pageX;
+                        percentageMove = ((startPosition.x - x) / slideWidth) * 100;
+
+                        // Check if magnetic swipe is on
+                        if(options.magneticSwipe){
+                            // Move slides
+                            obj.manualSlide(percentageMove);    
+                        }
+                    }
+                });
+
+                // Bind the mouseup or touchend event
+                $(options.slidesContainer).on(touchendEvent + " mouseup", function(e){
+                    isDragging = false;
+
+                    // Check if we have to call the next or previous slide, or reset the slides.
+                    if((percentageMove > 25 && obj.currentSlide < (obj.totalSlides - 1)))
+                        obj.nextSlide();
+                    else if(percentageMove < -25 && obj.currentSlide > 0)
+                        obj.prevSlide();    
+                    else
+                        obj.resetSlides();
+
+                    // Reset mouse cursor
                     $(options.slidesContainer).css('cursor','-webkit-grab');
                     $(options.slidesContainer).css('cursor','-moz-grab');
                     $(options.slidesContainer).css('cursor','grab');
                 });
-
-                // Add the swipe actions to the container
-                $(options.slidesContainer).swipe({
-                    swipeLeft: function(){
-                        obj.nextSlide();
-                    },
-                    swipeRight: function(){
-                        obj.prevSlide();
-                    }
-                });
             }
-            else if(!jQuery().swipe && options.swipe === true){
-                console.warn("Duo the missing TouchSwipe.js swipe has been disabled.");
-            }
-
+            
             // Add on init event
             $(element).trigger({
                 type: "init",
@@ -161,7 +208,9 @@
             });
         });
 
-        // Controller of the interval
+        /*
+         * Set the slider interval
+         */
         function setSliderInterval(){
             clearInterval(sliderInterval);
             sliderInterval = setInterval(function(){
@@ -169,14 +218,51 @@
             },options.interval);
         };
 
-        // Go to a previous slide (calls the nextslide function with the new slide number
+        /*
+         * Manual offset the slider with the given percentage
+         *
+         * @param1 int percentage
+         */
+        obj.manualSlide = function(percentage){
+            // Move the slides based on the calculated percentage
+            $(options.slidesContainer).find(options.slides).each(function(index){
+                if(options.transition == "slide"){                    
+                    if ($.support.transition && jQuery().transition)
+                        $(this).stop().css({x: (($(this).data('index') - obj.currentSlide) * 100) - percentage + '%'});
+                    else
+                        $(this).stop().css({left: (($(this).data('index') - obj.currentSlide) * 100) - percentage + '%'});
+                }
+            });
+        };
+
+        /*
+         * Reset slides to their given position. Used after a manualSlide action
+         */
+        obj.resetSlides = function(){
+            $(options.slidesContainer).find(options.slides).each(function(index){
+              if(options.transition == "slide"){                    
+                if ($.support.transition && jQuery().transition)
+                    $(this).stop().transition({x: ($(this).data('index')-obj.currentSlide)*100+'%'}, options.animateDuration, options.animationEasing);
+                else
+                    $(this).stop().animate({left: ($(this).data('index')-obj.currentSlide)*100+'%'}, options.animateDuration);
+                }
+            });
+        };
+
+        /*
+         * Go to the previous slide, calls the last slide when no previous slides
+         */
         obj.prevSlide = function(){
             var slide = (obj.currentSlide > 0) ? obj.currentSlide -= 1 : (obj.totalSlides - 1);
             obj.nextSlide(slide);
         };
 
-        // Go to a next slide (function is also used for the previous slide and goto slide functions).
-        // If a paramater is given it will go to the given slide
+        /*
+         * Go to a next slide (function is also used for the previous slide and goto slide functions).
+         * If a paramater is given it will go to the given slide  
+         *
+         * @param1 int slide
+         */
         obj.nextSlide = function(slide){
             // Cache the previous slide number and set slided to false
             var prevSlide = obj.currentSlide,
@@ -236,11 +322,13 @@
                         });
                     }
 				
+                    // Trigger event
                     $(element).trigger({
                         type: "afterSliding",
                         prevSlide: prevSlide,
                         newSlide: obj.currentSlide
                     });
+
                     slided = true;
                 }
             }
