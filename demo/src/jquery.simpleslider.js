@@ -221,7 +221,7 @@
         /*
          * Manual offset the slider with the given percentage
          *
-         * @param1 int percentage
+         * @param int percentage
          */
         obj.manualSlide = function(percentage){
             // Move the slides based on the calculated percentage
