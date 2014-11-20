@@ -35,7 +35,8 @@
             animateDuration: 1000,
             animationEasing: 'ease',
             pauseOnHover: false,
-            updateTransit: true // Change this to false is you dont want the slider to update the transit useTransitionEnd to true
+            updateTransit: true, // Change this to false is you dont want the slider to update the transit useTransitionEnd to true
+            useDefaultCSS: true
         }, useroptions);
 
         /*
@@ -53,30 +54,41 @@
 
             var cacheWidth = 0;
           
+            // Add default positioning css when enabled
+            if(options.useDefaultCSS){
+                $(options.slidesContainer).css({
+                    position: "relative",
+                    overflow: "hidden"
+                });
+            }
+
             // Find the slides in the sliderdom and add the index attribute
             $(options.slidesContainer).find(options.slides).each(function(index){
                 // Give each slide a data-index so we can control it later on
                 $(this).attr('data-index', index);
                 cacheWidth = ($(this).outerWidth() > cacheWidth) ? $(this).outerWidth() : cacheWidth;
 
+                // Add css for slide transition
                 if(options.transition == "slide"){
                     // A fixed width is needed for the IE left animation. Here we give each slide a width
-                     if($.support.transition !== undefined){
+                    if($.support.transition !== undefined){
                         $(this).css({
                             x: index * 100 + '%',
                             'z-index': obj.totalSlides - index,
                             width: cacheWidth
                         });
-                     }
-                     else{
+                    }
+                    else{
                         $(this).css({
-                            left: index * 100 + '%',
+                            lef : index * 100 + '%',
                             'z-index': obj.totalSlides - index,
                             width: cacheWidth
                         });
-                     }
-                 }
-                 if(options.transition == "fade"){
+                    }
+                }
+
+                // Add css for fade transition
+                if(options.transition == "fade"){
                     // A fixed width is needed for the IE left animation. Here we give each slide a width
                     var alpha = (index == 0) ? 1 : 0;
                     $(this).css({
@@ -86,8 +98,17 @@
                         width: cacheWidth,
                         opacity: alpha
                     });
-                 }
+                }
 
+                // Add default positioning css when enabled
+                if(options.useDefaultCSS){
+                    $(this).css({
+                        position: "absolute",
+                        float: "left",
+                        height: "100%",
+                        top: 0
+                    });
+                }
             });
 
             // Place the slideTracker after the container if enabled in the options

@@ -33,7 +33,7 @@ Add a div to your site containing the slides. The standard name for these divs a
 </div>
 ```
 
-After creating the HTML you have to add some css. This can be as short and simple as:
+After creating the HTML you have to add some css (or enable the ```useDefaultCSS``` option). This can be as short and simple as:
 ```
 .slider{
 	width: 100%;
@@ -76,7 +76,8 @@ $(document).ready(function(){
 		interval: 5000, // Interval to slide on if slideOnInterval is enabled
 		animateDuration: 1500, // Duration of an animation
 		animationEasing: 'easeInOut', // Accepts: linear ease in out in-out snap easeOutCubic easeInOutCubic easeInCirc easeOutCirc easeInOutCirc easeInExpo easeOutExpo easeInOutExpo easeInQuad easeOutQuad easeInOutQuad easeInQuart easeOutQuart easeInOutQuart easeInQuint easeOutQuint easeInOutQuint easeInSine easeOutSine easeInOutSine easeInBack easeOutBack easeInOutBack
-		pauseOnHover: false // Pause when user hovers the slide container
+		pauseOnHover: false, // Pause when user hovers the slide container
+		useDefaultCSS: false // Add default CSS for positioning the slides
 	};
 
 	$(".slider").simpleSlider(options);
