@@ -1,5 +1,5 @@
 /*
-    Version 2.5.0
+    Version 2.5.1
     The MIT License (MIT)
 
     Simple jQuery Slider is just what is says it is: a simple but powerfull jQuery slider.
