@@ -1,5 +1,5 @@
 /*
-    Version 2.5.1
+    Version 2.5.2
     The MIT License (MIT)
 
     Simple jQuery Slider is just what is says it is: a simple but powerfull jQuery slider.
@@ -80,7 +80,7 @@
                     }
                     else{
                         $(this).css({
-                            lef : index * 100 + '%',
+                            left: index * 100 + '%',
                             'z-index': obj.totalSlides - index,
                             width: cacheWidth
                         });
