@@ -58,14 +58,23 @@
             $(options.slidesContainer).wrapInner("<div class='jss-slideswrap' style='width:100%;height:100%;'></div>");
             movecontainer = ".jss-slideswrap";
 
+            if(options.neverEnding){  
+                if ($.support.transition && jQuery().transition)
+                    $(movecontainer).stop().css({x: '-100%'});
+                else
+                    $(movecontainer).stop().css({left: '-100%'});
+            }
+
             // Count the total slides
             obj.totalSlides = $(options.slidesContainer).find(options.slides).length;
 
             // Check if the neverEnding options has been enabled
-            // If it is; clone the first slide and append as last
+            // If it is; clone the first and last slide
             if(options.neverEnding){
                 var $first = $(options.slidesContainer).find(options.slides).first().clone(true, true);
+                var $last = $(options.slidesContainer).find(options.slides).last().clone(true, true);
                 
+                $(movecontainer).prepend($last);
                 $(movecontainer).append($first);
             }
 
@@ -82,7 +91,18 @@
             // Find the slides in the sliderdom and add the index attribute
             $(options.slidesContainer).find(options.slides).each(function(index){
                 // Give each slide a data-index so we can control it later on
-                $(this).attr('data-index', (options.neverEnding && index == obj.totalSlides) ? 0 : index);
+                if(options.neverEnding){
+                    if(index == 0)
+                        $(this).attr('data-index', obj.totalSlides - 1);
+                    else if(index == obj.totalSlides + 1)
+                        $(this).attr('data-index', 0);
+                    else
+                        $(this).attr('data-index', index - 1);
+                }
+                else{
+                    $(this).attr('data-index', index);
+                }
+
 
                 cacheWidth = ($(this).outerWidth() > cacheWidth) ? $(this).outerWidth() : cacheWidth;
 
@@ -133,10 +153,13 @@
             if(options.slideTracker){
                 // Add the slideposition div and add the indicators
                 $(options.slidesContainer).after("<div id='"+ options.slideTrackerID +"'><ul></ul></div>");
+
                 for(var x = 0; x < obj.totalSlides; x++){
                     var index = (obj.neverEnding && x == obj.totalSlides - 1) ? 0 : x;
+
                     $('#'+ options.slideTrackerID +' ul').append('<li class="indicator" data-index="' + index + '"></li>');
                 }
+
                 $('#'+ options.slideTrackerID +' ul li[data-index="'+obj.currentSlide+'"]').addClass('active');
 
                 // Make the slide indicators clickable
@@ -309,26 +332,43 @@
             var prevSlide = obj.currentSlide,
                 slided = false;
 
+            // Auto define the next slide
             if(slide === undefined)
                 obj.currentSlide = (obj.currentSlide < (obj.totalSlides-1)) ? obj.currentSlide += 1 : 0 ;    
             else
                 obj.currentSlide = slide;
 
-            // Create trigger point before a slide slides. Trigger wil return the prev and coming slide number
-            $(element).trigger({
-                type: "beforeSliding",
+
+            // Create event object which will contain the previous end next slide number
+            var beforeSlidingEvent = jQuery.Event("beforeSliding", {
                 prevSlide: prevSlide,
                 newSlide: obj.currentSlide
             });
+            $(element).trigger(beforeSlidingEvent);
+
+            // Stop the action when the user has prevented the default action
+            // and reset the obj.currentSlide to the previous number
+            if(beforeSlidingEvent.isDefaultPrevented()){
+                obj.currentSlide = prevSlide;
+                return false;
+            }                
+
 
             // Calculate the move percantage
             var movepercantage = -(obj.currentSlide * 100);
-
-            if(options.neverEnding && (obj.currentSlide == 0 && obj.totalSlides - 1 == prevSlide)){
-                movepercantage = -((prevSlide + 1) * 100);
+            if(options.neverEnding){
+                if(obj.currentSlide == obj.totalSlides - 1 && prevSlide == 0){
+                    movepercantage = 0;
+                }
+                else if(obj.currentSlide == 0 && obj.totalSlides - 1 == prevSlide){
+                    movepercantage = -(obj.totalSlides + 1) * 100;
+                }
+                else{
+                    movepercantage = -((obj.currentSlide + 1) * 100);   
+                }
             }
 
-
+            // Move the container 
             if(options.transition == "slide"){                    
                 if ($.support.transition && jQuery().transition)
                     $(movecontainer).stop().transition({x: movepercantage + '%'}, options.animateDuration, options.animationEasing);
@@ -336,6 +376,7 @@
                     $(movecontainer).stop().animate({left: movepercantage + '%'}, options.animateDuration, triggerSlideEnd);
             }
 
+            // Hide and show the correct slides
             if(options.transition == "fade"){
                 $(options.slidesContainer).find(options.slides).each(function(index){
                     var alpha = (index == obj.currentSlide) ? 1 : 0;
@@ -370,23 +411,31 @@
 
                     // Reset to the first slide when neverEnding has been enabled and the 'faked' last slide is active
                     if(options.transition == "slide" && options.neverEnding){
-                        // Check if it's the 'first' slide again
+                        // Check if it's the 'last' slide
+                        if(obj.currentSlide == obj.totalSlides - 1 && prevSlide == 0){
+                            if ($.support.transition && jQuery().transition)
+                                $(movecontainer).stop().transition({x: -(obj.totalSlides) * 100 + "%"}, 1, 'linear');
+                            else
+                                $(movecontainer).css({left: -(obj.totalSlides) * 100 + "%"});
+                        }
+
+                        // Check if it's the 'first' slide
                         if(obj.currentSlide == 0 && prevSlide == obj.totalSlides - 1){
                             if ($.support.transition && jQuery().transition)
-                                $(movecontainer).stop().transition({x: 0 + "%"}, 1, 'linear');
+                                $(movecontainer).stop().transition({x: "-100%"}, 1, 'linear');
                             else
-                                $(movecontainer).css({left: 0 + "%"});
+                                $(movecontainer).css({left: "-100%"});
                         }
                     }
                     
                    
                     // Trigger event
-                    $(element).trigger({
-                        type: "afterSliding",
+                    var afterSlidingEvent = jQuery.Event("afterSliding", {
                         prevSlide: prevSlide,
                         newSlide: obj.currentSlide
                     });
-
+                    $(element).trigger(afterSlidingEvent);
+                    
                     slided = true;
                 }
             }

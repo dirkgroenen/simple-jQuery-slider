@@ -23,8 +23,8 @@ $(document).ready(function(){
     $(".slider").on("beforeSliding", function(event){
         var prevSlide = event.prevSlide;
         var newSlide = event.newSlide;
-        $(".slider .slide[data-index='"+prevSlide+"'] .slidecontent").fadeOut();
-        $(".slider .slide[data-index='"+newSlide+"'] .slidecontent").hide();
+        $(".slider .slide[data-index='" + prevSlide + "'] .slidecontent").fadeOut();
+        $(".slider .slide[data-index='" + newSlide + "'] .slidecontent").hide();
 
         sliding = true;
     });
