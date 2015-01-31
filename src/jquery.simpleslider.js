@@ -1,5 +1,5 @@
 /*
-    Version 2.5.2
+    Version 2.6.0
     The MIT License (MIT)
 
     Simple jQuery Slider is just what is says it is: a simple but powerfull jQuery slider.
@@ -40,7 +40,6 @@
             pauseOnHover: false,
             updateTransit: true, // Change this to false is you dont want the slider to update the transit useTransitionEnd to true
             useDefaultCSS: true,
-            carousel: true,
             neverEnding: true
         }, useroptions);
 
@@ -236,9 +235,9 @@
                     isDragging = false;
 
                     // Check if we have to call the next or previous slide, or reset the slides.
-                    if(percentageMove > 25 && (obj.currentSlide < (obj.totalSlides - 1) || options.carousel))
+                    if(percentageMove > 25 && (obj.currentSlide < (obj.totalSlides - 1)))
                         obj.nextSlide();
-                    else if(percentageMove < -25 && (obj.currentSlide > 0 || options.carousel))
+                    else if(percentageMove < -25 && (obj.currentSlide > 0))
                         obj.prevSlide();    
                     else
                         obj.resetSlides();
@@ -286,31 +285,39 @@
          *
          * @param int percentage
          */
-        obj.manualSlide = function(percentage){
+        obj.manualSlide = function(percentage){ 
             // Move the slides based on the calculated percentage
-            $(options.slidesContainer).find(options.slides).each(function(index){
-                if(options.transition == "slide"){                    
-                    if ($.support.transition && jQuery().transition)
-                        $(this).stop().css({x: (($(this).data('index') - obj.currentSlide) * 100) - percentage + '%'});
-                    else
-                        $(this).stop().css({left: (($(this).data('index') - obj.currentSlide) * 100) - percentage + '%'});
-                }
-            });
+            if(options.transition == "slide"){
+                // Remove the previous transition effect
+                $(movecontainer).css("-webkit-transition", "none");
+                $(movecontainer).css("-moz-transition", "none");
+                $(movecontainer).css("-ms-transition", "none");
+                $(movecontainer).css("transition", "none");
+
+                if(options.neverEnding)  
+                    var movepercantage = -(((obj.currentSlide + 1) * 100) + percentage);
+                else
+                    var movepercantage = -((obj.currentSlide * 100) + percentage);
+
+                if ($.support.transition && jQuery().transition)
+                    $(movecontainer).css({x: movepercantage + '%'});
+                else
+                    $(movecontainer).css({left: movepercantage + '%'});
+            }
         };
 
         /*
          * Reset slides to their given position. Used after a manualSlide action
          */
         obj.resetSlides = function(){
-            $(options.slidesContainer).find(options.slides).each(function(index){
-                if(options.transition == "slide"){       
-                    var movepercantage = -(obj.currentSlide * 100);
-                    if ($.support.transition && jQuery().transition)             
-                        $(movecontainer).stop().transition({x: movepercantage + '%'}, options.animateDuration, options.animationEasing);
-                    else
-                        $(movecontainer).stop().animate({left: movepercantage + '%'}, options.animateDuration);
-                }
-            });
+            if(options.transition == "slide"){       
+                var movepercantage = (options.neverEnding) ? -((obj.currentSlide + 1) * 100) : -(obj.currentSlide * 100);
+
+                if ($.support.transition && jQuery().transition)             
+                    $(movecontainer).stop().transition({x: movepercantage + '%'}, options.animateDuration, options.animationEasing);
+                else
+                    $(movecontainer).stop().animate({left: movepercantage + '%'}, options.animateDuration);
+            }
         };
 
         /*
