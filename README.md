@@ -79,7 +79,8 @@ $(document).ready(function(){
 		animateDuration: 1500, // Duration of an animation
 		animationEasing: 'easeInOut', // Accepts: linear ease in out in-out snap easeOutCubic easeInOutCubic easeInCirc easeOutCirc easeInOutCirc easeInExpo easeOutExpo easeInOutExpo easeInQuad easeOutQuad easeInOutQuad easeInQuart easeOutQuart easeInOutQuart easeInQuint easeOutQuint easeInOutQuint easeInSine easeOutSine easeInOutSine easeInBack easeOutBack easeInOutBack
 		pauseOnHover: false, // Pause when user hovers the slide container
-		useDefaultCSS: false // Add default CSS for positioning the slides
+		useDefaultCSS: false, // Add default CSS for positioning the slides
+		neverEnding: true // Create a 'neverending/repeating' slider effect.
 	};
 
 	$(".slider").simpleSlider(options);
@@ -125,11 +126,15 @@ SimpleSlider will trigger a `init`, `beforeSliding` and `afterSliding` event. Yo
 ```
 The `afterSliding` is triggered after the animation completed.
 
+You can also call ```event.preventDefault();``` in the beforeSliding event to prevent the slider from sliding to the next/previous slide.
+
 Examples
 --------
 Simple-jQuery-Slider is used in the following websites. You can check them out if you want to see the slider in action!
 
 [Demo site #1](http://simpleslider.bitlabsbeta.nl/)
+
+Have you used the slider in one of your projects? Please let me know so I can add the link in this README.
 
 Supported browser
 -----------------
