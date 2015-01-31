@@ -36,7 +36,8 @@
             animationEasing: 'ease',
             pauseOnHover: false,
             updateTransit: true, // Change this to false is you dont want the slider to update the transit useTransitionEnd to true
-            useDefaultCSS: true
+            useDefaultCSS: true,
+            carousel: true
         }, useroptions);
 
         /*
@@ -194,9 +195,9 @@
                     isDragging = false;
 
                     // Check if we have to call the next or previous slide, or reset the slides.
-                    if((percentageMove > 25 && obj.currentSlide < (obj.totalSlides - 1)))
+                    if(percentageMove > 25 && (obj.currentSlide < (obj.totalSlides - 1) || options.carousel))
                         obj.nextSlide();
-                    else if(percentageMove < -25 && obj.currentSlide > 0)
+                    else if(percentageMove < -25 && (obj.currentSlide > 0 || options.carousel))
                         obj.prevSlide();    
                     else
                         obj.resetSlides();
