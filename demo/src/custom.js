@@ -32,6 +32,18 @@ $(document).ready(function(){
         $(".slider .slide[data-index='"+newSlide+"'] .slidecontent").fadeIn();
     });
 
+    /**
+     * Control the slider by scrolling
+     */
+    $(window).bind('mousewheel', function(event) {
+        if(event.originalEvent.deltaY > 0){
+            mainslider.nextSlide();
+        }
+        else{
+            mainslider.prevSlide();
+        }
+    });
+
     $(".slide#first").backstretch("images/bg1.jpg");
     $(".slide#sec").backstretch("images/bg2.jpg");
     $(".slide#thirth").backstretch("images/bg4.jpg");
