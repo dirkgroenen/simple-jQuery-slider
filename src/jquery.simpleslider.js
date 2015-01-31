@@ -16,7 +16,10 @@
     var simpleSlider = function(element, useroptions){
         // Set some variables
         var obj = this,
-            sliderInterval = null;
+        sliderInterval = null,
+        movecontainer = null;
+
+
         obj.currentSlide = 0;
         obj.totalSlides = 0;
 
@@ -37,7 +40,8 @@
             pauseOnHover: false,
             updateTransit: true, // Change this to false is you dont want the slider to update the transit useTransitionEnd to true
             useDefaultCSS: true,
-            carousel: true
+            carousel: true,
+            neverEnding: true
         }, useroptions);
 
         /*
@@ -50,8 +54,20 @@
                 $.transit.useTransitionEnd = true;
             }
 
+            // Wrap the slides in a new container which will be used to move the slides
+            $(options.slidesContainer).wrapInner("<div class='jss-slideswrap' style='width:100%;height:100%;'></div>");
+            movecontainer = ".jss-slideswrap";
+
             // Count the total slides
             obj.totalSlides = $(options.slidesContainer).find(options.slides).length;
+
+            // Check if the neverEnding options has been enabled
+            // If it is; clone the first slide and append as last
+            if(options.neverEnding){
+                var $first = $(options.slidesContainer).find(options.slides).first().clone(true, true);
+                
+                $(movecontainer).append($first);
+            }
 
             var cacheWidth = 0;
           
@@ -66,7 +82,8 @@
             // Find the slides in the sliderdom and add the index attribute
             $(options.slidesContainer).find(options.slides).each(function(index){
                 // Give each slide a data-index so we can control it later on
-                $(this).attr('data-index', index);
+                $(this).attr('data-index', (options.neverEnding && index == obj.totalSlides) ? 0 : index);
+
                 cacheWidth = ($(this).outerWidth() > cacheWidth) ? $(this).outerWidth() : cacheWidth;
 
                 // Add css for slide transition
@@ -116,8 +133,9 @@
             if(options.slideTracker){
                 // Add the slideposition div and add the indicators
                 $(options.slidesContainer).after("<div id='"+ options.slideTrackerID +"'><ul></ul></div>");
-                for(var x = 0; x < obj.totalSlides;x++){
-                    $('#'+ options.slideTrackerID +' ul').append('<li class="indicator" data-index="'+x+'"></li>');
+                for(var x = 0; x < obj.totalSlides; x++){
+                    var index = (obj.neverEnding && x == obj.totalSlides - 1) ? 0 : x;
+                    $('#'+ options.slideTrackerID +' ul').append('<li class="indicator" data-index="' + index + '"></li>');
                 }
                 $('#'+ options.slideTrackerID +' ul li[data-index="'+obj.currentSlide+'"]').addClass('active');
 
@@ -262,11 +280,12 @@
          */
         obj.resetSlides = function(){
             $(options.slidesContainer).find(options.slides).each(function(index){
-              if(options.transition == "slide"){                    
-                if ($.support.transition && jQuery().transition)
-                    $(this).stop().transition({x: ($(this).data('index')-obj.currentSlide)*100+'%'}, options.animateDuration, options.animationEasing);
-                else
-                    $(this).stop().animate({left: ($(this).data('index')-obj.currentSlide)*100+'%'}, options.animateDuration);
+                if(options.transition == "slide"){       
+                    var movepercantage = -(obj.currentSlide * 100);
+                    if ($.support.transition && jQuery().transition)             
+                        $(movecontainer).stop().transition({x: movepercantage + '%'}, options.animateDuration, options.animationEasing);
+                    else
+                        $(movecontainer).stop().animate({left: movepercantage + '%'}, options.animateDuration);
                 }
             });
         };
@@ -291,7 +310,7 @@
                 slided = false;
 
             if(slide === undefined)
-                obj.currentSlide = (obj.currentSlide < (obj.totalSlides-1)) ? obj.currentSlide += 1 : 0 ;
+                obj.currentSlide = (obj.currentSlide < (obj.totalSlides-1)) ? obj.currentSlide += 1 : 0 ;    
             else
                 obj.currentSlide = slide;
 
@@ -302,17 +321,23 @@
                 newSlide: obj.currentSlide
             });
 
-            // Slide animation, here we determine if we can use CSS transitions (transit.js) or have to use jQuery animate
-            $(options.slidesContainer).find(options.slides).each(function(index){
-            
-                if(options.transition == "slide"){                    
-                    if ($.support.transition && jQuery().transition)
-                        $(this).stop().transition({x: ($(this).data('index')-obj.currentSlide)*100+'%'}, options.animateDuration, options.animationEasing);
-                    else
-                        $(this).stop().animate({left: ($(this).data('index')-obj.currentSlide)*100+'%'}, options.animateDuration, triggerSlideEnd);
-                }
-                
-                if(options.transition == "fade"){
+            // Calculate the move percantage
+            var movepercantage = -(obj.currentSlide * 100);
+
+            if(options.neverEnding && (obj.currentSlide == 0 && obj.totalSlides - 1 == prevSlide)){
+                movepercantage = -((prevSlide + 1) * 100);
+            }
+
+
+            if(options.transition == "slide"){                    
+                if ($.support.transition && jQuery().transition)
+                    $(movecontainer).stop().transition({x: movepercantage + '%'}, options.animateDuration, options.animationEasing);
+                else
+                    $(movecontainer).stop().animate({left: movepercantage + '%'}, options.animateDuration, triggerSlideEnd);
+            }
+
+            if(options.transition == "fade"){
+                $(options.slidesContainer).find(options.slides).each(function(index){
                     var alpha = (index == obj.currentSlide) ? 1 : 0;
 
                     if(index == obj.currentSlide){
@@ -323,9 +348,8 @@
                         $(this).stop().transition({opacity: alpha}, options.animateDuration, triggerSlideEnd);
                     else
                         $(this).stop().animate({opacity: alpha}, options.animateDuration, triggerSlideEnd);
-                }
-            
-            });
+                });
+            }
 
             // Somehow the callback from $.transition doesn't work, so we create ow custom bind here
             $(options.slidesContainer).on('oTransitionEnd webkitTransitionEnd oTransitionEnd otransitionend transitionend', triggerSlideEnd);
@@ -334,7 +358,7 @@
             function triggerSlideEnd(){
                 if(!slided){
                     if(options.transition == "fade"){
-                        $(options.slidesContainer).children(options.slides).each(function(index){
+                        $(options.slidesContainer).find(options.slides).each(function(index){
                             if($(this).data('index') == obj.currentSlide){
                                 $(this).show();
                             }
@@ -343,7 +367,19 @@
                             }
                         });
                     }
-                
+
+                    // Reset to the first slide when neverEnding has been enabled and the 'faked' last slide is active
+                    if(options.transition == "slide" && options.neverEnding){
+                        // Check if it's the 'first' slide again
+                        if(obj.currentSlide == 0 && prevSlide == obj.totalSlides - 1){
+                            if ($.support.transition && jQuery().transition)
+                                $(movecontainer).stop().transition({x: 0 + "%"}, 1, 'linear');
+                            else
+                                $(movecontainer).css({left: 0 + "%"});
+                        }
+                    }
+                    
+                   
                     // Trigger event
                     $(element).trigger({
                         type: "afterSliding",
