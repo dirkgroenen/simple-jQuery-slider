@@ -54,7 +54,7 @@
             }
 
             // Wrap the slides in a new container which will be used to move the slides
-            $(options.slidesContainer).wrapInner("<div class='jss-slideswrap' style='width:100%;height:100%;'></div>");
+            $(options.slidesContainer).wrapInner("<div class='jss-slideswrap' style='position:absolute;width:100%;height:100%;'></div>");
             movecontainer = ".jss-slideswrap";
 
             if(options.neverEnding){  
@@ -111,14 +111,14 @@
                     if($.support.transition !== undefined){
                         $(this).css({
                             x: index * 100 + '%',
-                            'z-index': obj.totalSlides - index,
+                            'z-index': (obj.totalSlides * 2) - index,
                             width: cacheWidth
                         });
                     }
                     else{
                         $(this).css({
                             left: index * 100 + '%',
-                            'z-index': obj.totalSlides - index,
+                            'z-index': (obj.totalSlides * 2) - index,
                             width: cacheWidth
                         });
                     }
