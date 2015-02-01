@@ -91,7 +91,7 @@
             $(options.slidesContainer).find(options.slides).each(function(index){
                 // Give each slide a data-index so we can control it later on
                 if(options.neverEnding){
-                    if(index == 0)
+                    if(index === 0)
                         $(this).attr('data-index', obj.totalSlides - 1);
                     else if(index == obj.totalSlides + 1)
                         $(this).attr('data-index', 0);
@@ -127,7 +127,7 @@
                 // Add css for fade transition
                 if(options.transition == "fade"){
                     // A fixed width is needed for the IE left animation. Here we give each slide a width
-                    var alpha = (index == 0) ? 1 : 0;
+                    var alpha = (index === 0) ? 1 : 0;
                     $(this).css({
                         left: 0,
                         top: 0,
@@ -198,8 +198,8 @@
                     
                     // Save start coordinates
                     startPosition = {
-                        x: (e.pageX != undefined) ? e.pageX : e.originalEvent.touches[0].pageX,
-                        y: (e.pageY != undefined) ? e.pageY : e.originalEvent.touches[0].pageY
+                        x: (e.pageX !== undefined) ? e.pageX : e.originalEvent.touches[0].pageX,
+                        y: (e.pageY !== undefined) ? e.pageY : e.originalEvent.touches[0].pageY
                     };
 
                     // Reset transition animation
@@ -219,7 +219,7 @@
                 $(options.slidesContainer).on(touchmoveEvent + " mousemove", function(e){
                     if(isDragging){
                         // Calculate given distance in pixels to percentage
-                        var x = (e.pageX != undefined) ? e.pageX : e.originalEvent.touches[0].pageX;
+                        var x = (e.pageX !== undefined) ? e.pageX : e.originalEvent.touches[0].pageX;
                         percentageMove = ((startPosition.x - x) / slideWidth) * 100;
 
                         // Check if magnetic swipe is on
@@ -278,7 +278,7 @@
             sliderInterval = setInterval(function(){
                 obj.nextSlide();
             },options.interval);
-        };
+        }
 
         /*
          * Manual offset the slider with the given percentage
@@ -294,10 +294,10 @@
                 $(movecontainer).css("-ms-transition", "none");
                 $(movecontainer).css("transition", "none");
 
+                var movepercantage = -((obj.currentSlide * 100) + percentage);
+
                 if(options.neverEnding)  
-                    var movepercantage = -(((obj.currentSlide + 1) * 100) + percentage);
-                else
-                    var movepercantage = -((obj.currentSlide * 100) + percentage);
+                    movepercantage = -(((obj.currentSlide + 1) * 100) + percentage);
 
                 if ($.support.transition && jQuery().transition)
                     $(movecontainer).css({x: movepercantage + '%'});
@@ -364,10 +364,10 @@
             // Calculate the move percantage
             var movepercantage = -(obj.currentSlide * 100);
             if(options.neverEnding){
-                if(obj.currentSlide == obj.totalSlides - 1 && prevSlide == 0){
+                if(obj.currentSlide == obj.totalSlides - 1 && prevSlide === 0){
                     movepercantage = 0;
                 }
-                else if(obj.currentSlide == 0 && obj.totalSlides - 1 == prevSlide){
+                else if(obj.currentSlide === 0 && obj.totalSlides - 1 == prevSlide){
                     movepercantage = -(obj.totalSlides + 1) * 100;
                 }
                 else{
@@ -419,7 +419,7 @@
                     // Reset to the first slide when neverEnding has been enabled and the 'faked' last slide is active
                     if(options.transition == "slide" && options.neverEnding){
                         // Check if it's the 'last' slide
-                        if(obj.currentSlide == obj.totalSlides - 1 && prevSlide == 0){
+                        if(obj.currentSlide == obj.totalSlides - 1 && prevSlide === 0){
                             if ($.support.transition && jQuery().transition)
                                 $(movecontainer).stop().transition({x: -(obj.totalSlides) * 100 + "%"}, 1, 'linear');
                             else
@@ -427,7 +427,7 @@
                         }
 
                         // Check if it's the 'first' slide
-                        if(obj.currentSlide == 0 && prevSlide == obj.totalSlides - 1){
+                        if(obj.currentSlide === 0 && prevSlide == obj.totalSlides - 1){
                             if ($.support.transition && jQuery().transition)
                                 $(movecontainer).stop().transition({x: "-100%"}, 1, 'linear');
                             else
@@ -482,5 +482,6 @@
             // Store the plugin object in this element's data
             element.data('simpleslider', simpleslider);
         });
-    }
+    };
+
 })(jQuery);
