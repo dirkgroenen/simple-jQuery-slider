@@ -1,5 +1,5 @@
 /*
-    Version 2.6.0
+    Version 2.6.2
     The MIT License (MIT)
 
     Simple jQuery Slider is just what is says it is: a simple but powerfull jQuery slider.
@@ -17,7 +17,8 @@
         // Set some variables
         var obj = this,
         sliderInterval = null,
-        movecontainer = null;
+        movecontainer = null,
+        instanceID = Math.floor(Math.random() * 100) + Date.now(); // Create a unique ID for this slider
 
 
         obj.currentSlide = 0;
@@ -53,9 +54,11 @@
                 $.transit.useTransitionEnd = true;
             }
 
+            var movecontainerclass = "jss-slideswrap-" + instanceID;
+
             // Wrap the slides in a new container which will be used to move the slides
-            $(options.slidesContainer).wrapInner("<div class='jss-slideswrap' style='position:absolute;width:100%;height:100%;'></div>");
-            movecontainer = ".jss-slideswrap";
+            $(options.slidesContainer).wrapInner("<div class='" + movecontainerclass + "' style='position:absolute;width:100%;height:100%;'></div>");
+            movecontainer = "." + movecontainerclass;
 
             if(options.neverEnding){  
                 if ($.support.transition && jQuery().transition)
@@ -151,18 +154,18 @@
             // Place the slideTracker after the container if enabled in the options
             if(options.slideTracker){
                 // Add the slideposition div and add the indicators
-                $(options.slidesContainer).after("<div id='"+ options.slideTrackerID +"'><ul></ul></div>");
+                $(options.slidesContainer).after("<div id='"+ options.slideTrackerID +"' data-slider='" + instanceID + "'><ul></ul></div>");
 
                 for(var x = 0; x < obj.totalSlides; x++){
                     var index = (obj.neverEnding && x == obj.totalSlides - 1) ? 0 : x;
 
-                    $('#'+ options.slideTrackerID +' ul').append('<li class="indicator" data-index="' + index + '"></li>');
+                    $('div[data-slider="' + instanceID + '"] ul').append('<li class="indicator" data-index="' + index + '"></li>');
                 }
 
-                $('#'+ options.slideTrackerID +' ul li[data-index="'+obj.currentSlide+'"]').addClass('active');
+                $('div[data-slider="' + instanceID + '"] ul li[data-index="'+obj.currentSlide+'"]').addClass('active');
 
                 // Make the slide indicators clickable
-                $("#"+ options.slideTrackerID +" ul li").click(function(){
+                $("div[data-slider='" + instanceID + "'] ul li").click(function(){
                     if(!($(this).hasClass("active")))
                         obj.nextSlide($(this).data('index'));
                 });
@@ -448,8 +451,8 @@
             }
 
             // Show current slide bulb
-            $('#'+ options.slideTrackerID +' ul li').removeClass('active');
-            $('#'+ options.slideTrackerID +' ul li[data-index="'+obj.currentSlide+'"]').addClass('active');
+            $('div[data-slider="' + instanceID + '"] ul li').removeClass('active');
+            $('div[data-slider="' + instanceID + '"] ul li[data-index="'+obj.currentSlide+'"]').addClass('active');
 
             // (Re)set the slider interval
             if(options.slideOnInterval){
