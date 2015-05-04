@@ -48,6 +48,12 @@
          * Method to build and init the slider
          */
         obj.init = function(){
+            // Disable some options when transition fade has been selected
+            if(options.transition == "fade"){
+                options.neverEnding = false;
+                options.magneticSwipe = false;
+            }
+
             // If transit is included and useTransitionEnd == false we will change this to true (better animation performance).
             // Unless the user changed updateTransit to false
             if(options.updateTransit && $.support.transition && jQuery().transition && !$.transit.useTransitionEnd){
@@ -269,7 +275,10 @@
                 
                 cacheWidth = ($(this).outerWidth() > cacheWidth) ? $(this).outerWidth() : cacheWidth;
                 
-                $(this).css({x: ($(this).data('index') - obj.currentSlideindex) * 100 + '%', width: cacheWidth});
+                if(options.transition == "fade")
+                    $(this).css({width: cacheWidth});
+                else
+                    $(this).css({x: ($(this).data('index') - obj.currentSlideindex) * 100 + '%', width: cacheWidth});
             });
         });
 
