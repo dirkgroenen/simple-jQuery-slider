@@ -306,15 +306,15 @@
                 $(movecontainer).css("-ms-transition", "none");
                 $(movecontainer).css("transition", "none");
 
-                var movepercantage = -((obj.currentSlide * 100) + percentage);
+                var movepercentage = -((obj.currentSlide * 100) + percentage);
 
                 if(options.neverEnding)  
-                    movepercantage = -(((obj.currentSlide + 1) * 100) + percentage);
+                    movepercentage = -(((obj.currentSlide + 1) * 100) + percentage);
 
                 if ($.support.transition && jQuery().transition)
-                    $(movecontainer).css({x: movepercantage + '%'});
+                    $(movecontainer).css({x: movepercentage + '%'});
                 else
-                    $(movecontainer).css({left: movepercantage + '%'});
+                    $(movecontainer).css({left: movepercentage + '%'});
             }
         };
 
@@ -323,12 +323,12 @@
          */
         obj.resetSlides = function(){
             if(options.transition == "slide"){       
-                var movepercantage = (options.neverEnding) ? -((obj.currentSlide + 1) * 100) : -(obj.currentSlide * 100);
+                var movepercentage = (options.neverEnding) ? -((obj.currentSlide + 1) * 100) : -(obj.currentSlide * 100);
 
                 if ($.support.transition && jQuery().transition)             
-                    $(movecontainer).stop().transition({x: movepercantage + '%'}, options.animateDuration, options.animationEasing);
+                    $(movecontainer).stop().transition({x: movepercentage + '%'}, options.animateDuration, options.animationEasing);
                 else
-                    $(movecontainer).stop().animate({left: movepercantage + '%'}, options.animateDuration);
+                    $(movecontainer).stop().animate({left: movepercentage + '%'}, options.animateDuration);
             }
         };
 
@@ -357,7 +357,6 @@
             else
                 obj.currentSlide = slide;
 
-
             // Create event object which will contain the previous end next slide number
             var beforeSlidingEvent = jQuery.Event("beforeSliding", {
                 prevSlide: prevSlide,
@@ -372,27 +371,27 @@
                 return false;
             }                
 
-
-            // Calculate the move percantage
-            var movepercantage = -(obj.currentSlide * 100);
+            // Calculate the move percentage
+            var movepercentage = -(obj.currentSlide * 100);
+            
             if(options.neverEnding){
                 if(obj.currentSlide == obj.totalSlides - 1 && prevSlide === 0){
-                    movepercantage = 0;
+                    movepercentage = 0;
                 }
                 else if(obj.currentSlide === 0 && obj.totalSlides - 1 == prevSlide){
-                    movepercantage = -(obj.totalSlides + 1) * 100;
+                    movepercentage = -(obj.totalSlides + 1) * 100;
                 }
                 else{
-                    movepercantage = -((obj.currentSlide + 1) * 100);   
+                    movepercentage = -((obj.currentSlide + 1) * 100);   
                 }
             }
 
             // Move the container 
             if(options.transition == "slide"){                    
                 if ($.support.transition && jQuery().transition)
-                    $(movecontainer).stop().transition({x: movepercantage + '%'}, options.animateDuration, options.animationEasing);
+                    $(movecontainer).stop().transition({x: movepercentage + '%'}, options.animateDuration, options.animationEasing);
                 else
-                    $(movecontainer).stop().animate({left: movepercantage + '%'}, options.animateDuration, triggerSlideEnd);
+                    $(movecontainer).stop().animate({left: movepercentage + '%'}, options.animateDuration, triggerSlideEnd);
             }
 
             // Hide and show the correct slides
