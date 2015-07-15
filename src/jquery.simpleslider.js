@@ -226,6 +226,12 @@
 
                 // Bind the mousemove or touchmove event
                 $(options.slidesContainer).on(touchmoveEvent + " mousemove", function(e){
+                    // Prevent default action on touchmove event
+                    // This solves the bug with Android phones
+                    // https://github.com/dirkgroenen/simple-jQuery-slider/issues/11
+                    if(e.type == touchmoveEvent)
+                        e.preventDefault();
+
                     if(isDragging){
                         // Calculate given distance in pixels to percentage
                         var x = (e.pageX !== undefined) ? e.pageX : e.originalEvent.touches[0].pageX;
@@ -373,7 +379,7 @@
 
             // Calculate the move percentage
             var movepercentage = -(obj.currentSlide * 100);
-            
+
             if(options.neverEnding){
                 if(obj.currentSlide == obj.totalSlides - 1 && prevSlide === 0){
                     movepercentage = 0;
@@ -382,7 +388,7 @@
                     movepercentage = -(obj.totalSlides + 1) * 100;
                 }
                 else{
-                    movepercentage = -((obj.currentSlide + 1) * 100);   
+                    movepercentage = -((obj.currentSlide + 1) * 100);
                 }
             }
 
