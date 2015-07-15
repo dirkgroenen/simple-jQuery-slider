@@ -8,11 +8,9 @@
     "slider",
     "simple"
   ],
-  "version": "2.6.3",
+  "version": "2.6.4",
   "main": "dist/jquery.simpleslider.min.js",
   "dependencies": {
-    "jquery": "*",
-    "jquery.transit": "*",
-    "jquery-touchswipe": "*"
+    "jquery": "*"
   }
 }

@@ -1,7 +1,7 @@
 {
   "name": "simple-jQuery-slider",
   "author": "Dirk Groenen",
-  "version": "2.6.3",
+  "version": "2.6.4",
   "homepage": "http://simpleslider.bitlabsbeta.nl",
   "description": "A simple and flexible jQuery slider that does what a slider needs to do: slide slides! The slider has some key functions on-board which give you full control over it.",
   "repository": "https://github.com/dirkgroenen/simple-jQuery-slider",
