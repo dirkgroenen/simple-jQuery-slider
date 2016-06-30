@@ -10,11 +10,9 @@
     "type": "GNU v3",
     "url": "https://github.com/dirkgroenen/simple-jQuery-slider/blob/master/LICENSE.md"
   },
-  "dependencies": {
-    "grunt": "^0.4.5",
-    "protractor": "^1.6.1"
-  },
   "devDependencies": {
+    "grunt": "^0.4.5",
+    "protractor": "^1.6.1",
     "grunt-contrib-jshint": "^0.11.0",
     "grunt-contrib-uglify": "^0.7.0",
     "grunt-contrib-watch": "^0.6.1"
